@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{A1CBA784-EA0A-4CB2-B6C4-022FAFC24909}|Default">
+  <MonoDevelop.Ide.ItemProperties.Sudoku.Console PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sudoku.Console/Game.cs">
+    <Files>
+      <File FileName="Sudoku.Console/Program.cs" Line="73" Column="48" />
+      <File FileName="Sudoku.Console/Table.cs" Line="40" Column="36" />
+      <File FileName="Sudoku.Console/ArrayExtensions.cs" Line="6" Column="51" />
+      <File FileName="Sudoku.Console/Helpers.cs" Line="10" Column="21" />
+      <File FileName="Sudoku.Console/Table.cs" Line="60" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Sudoku" expanded="True">
+            <Node name="Sudoku.Console" expanded="True">
+              <Node name="Table.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>
