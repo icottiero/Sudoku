@@ -13,3 +13,5 @@ The code here might not (and probably will not) always be written in the best wa
     - Console Application
 - Go
     - Console Application
+- Dart
+    - Console Application
