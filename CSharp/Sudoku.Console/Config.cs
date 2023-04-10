@@ -2,5 +2,5 @@ namespace Sudoku.Helpers;
 
 public static class Config
 {
-    public const string TemplatesPath = "../GameTemplates";
+    public const string TemplatesPath = "../../Templates";
 }
