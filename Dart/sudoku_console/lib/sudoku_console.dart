@@ -25,7 +25,23 @@ Future<void> playGame() async {
         Position(rowIndex: rowNumber - 1, columnIndex: columnNumber - 1));
 
     if (!result.success) {
-      print(result.message);
+      print('Unable to make the required move:');
+      for (var reason in result.reasons) {
+        switch (reason.brokenRule) {
+          case RuleType.column:
+            print(
+                'The same value was found in the same column at position ${reason.conflictingPosition.rowIndex}');
+            break;
+          case RuleType.row:
+            print(
+                'The same value was found in the same row at position ${reason.conflictingPosition.columnIndex}');
+            break;
+          case RuleType.box:
+            print(
+                'The same value was found in the same box at position ${reason.conflictingPosition.rowIndex + 1},${reason.conflictingPosition.columnIndex + 1}');
+            break;
+        }
+      }
     }
   }
 }
@@ -50,4 +66,33 @@ int ensureNumberInput() {
 
     return numberInput;
   }
+}
+
+void _printResult(MoveResult result) {
+  if (!result.success) {
+    print('Unable to make the required move:');
+    for (var reason in result.reasons) {
+      switch (reason.brokenRule) {
+        case RuleType.column:
+          print(
+              'The same value was found in the same column at position ${reason.conflictingPosition.rowIndex}\n');
+          break;
+        case RuleType.row:
+          print(
+              'The same value was found in the same row at position ${reason.conflictingPosition.columnIndex}\n');
+          break;
+        case RuleType.box:
+          print(
+              'The same value was found in the same box at position ${reason.conflictingPosition.rowIndex + 1},${reason.conflictingPosition.columnIndex + 1}\n');
+          break;
+        case RuleType.position:
+          print('The position you specified is not empty.');
+          break;
+      }
+    }
+
+    return;
+  }
+
+  print('Move successful!\n');
 }

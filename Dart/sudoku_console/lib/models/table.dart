@@ -23,10 +23,6 @@ class Table {
     _filledCount++;
   }
 
-  bool get isFull {
-    return _filledCount >= 81;
-  }
-
   int? getValue({
     required int rowIndex,
     required int columnIndex,
@@ -35,6 +31,16 @@ class Table {
     _validateIndex(columnIndex);
 
     return _numbers[rowIndex][columnIndex];
+  }
+
+  bool isEmpty(Position position) {
+    return getValue(
+            rowIndex: position.rowIndex, columnIndex: position.columnIndex) ==
+        null;
+  }
+
+  bool get isFull {
+    return _filledCount >= 81;
   }
 
   void _validateValue(int value) {

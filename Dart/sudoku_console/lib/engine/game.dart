@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:sudoku_console/models/table.dart';
 import 'package:sudoku_console/models/position.dart';
 
@@ -33,24 +35,25 @@ class Game {
 
   MoveResult tryMove(int value, Position position) {
     int foundAtIndex = -1;
+    List<Reason> failureReasons = List.empty();
+
+    if (_table.isEmpty(position)) {
+      failureReasons.add(Reason(RuleType.position, position));
+    }
 
     var row = _getRow(position.rowIndex);
     foundAtIndex = row.indexOf(value);
 
     if (foundAtIndex > -1) {
-      return MoveResult(
-          success: false,
-          message:
-              'The row $position contains the same value at index $foundAtIndex');
+      failureReasons.add(Reason(RuleType.row,
+          Position(rowIndex: position.rowIndex, columnIndex: foundAtIndex)));
     }
 
     var column = _getColumn(position.columnIndex);
     foundAtIndex = column.indexOf(value);
     if (foundAtIndex > -1) {
-      return MoveResult(
-          success: false,
-          message:
-              'The column ${position.columnIndex} contains the same value at index $foundAtIndex');
+      failureReasons.add(Reason(RuleType.column,
+          Position(rowIndex: foundAtIndex, columnIndex: position.columnIndex)));
     }
 
     final boxStartingPosition = _getBoxStartingPosition(position);
@@ -59,15 +62,16 @@ class Game {
     if (foundAtIndex > -1) {
       final foundAtPosition =
           _getAbsolutePositionFromBoxIndex(boxStartingPosition, foundAtIndex);
-      return MoveResult(
-          success: false,
-          message: 'The box contains the same value at index '
-              '(r:${foundAtPosition.rowIndex},c:${foundAtPosition.columnIndex})');
+      failureReasons.add(Reason(RuleType.box, foundAtPosition));
     }
 
-    _table.setValue(value: value, position: position);
+    var result = MoveResult(reasons: failureReasons);
 
-    return MoveResult(success: true);
+    if (result.success) {
+      _table.setValue(value: value, position: position);
+    }
+
+    return result;
   }
 
   List<int?> _getRow(int rowIndex) {
@@ -114,10 +118,18 @@ class Game {
 
 class MoveResult {
   final bool success;
-  final String? message;
+  final List<Reason> reasons;
 
   MoveResult({
-    required this.success,
-    this.message,
-  });
+    required this.reasons,
+  }) : success = reasons.isEmpty;
 }
+
+class Reason {
+  final RuleType brokenRule;
+  final Position conflictingPosition;
+
+  Reason(this.brokenRule, this.conflictingPosition);
+}
+
+enum RuleType { row, column, box, position }
