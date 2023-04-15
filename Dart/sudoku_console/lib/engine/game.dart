@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
-import 'package:sudoku_console/models/table.dart';
-import 'package:sudoku_console/models/position.dart';
+import '../models/position.dart';
+import '../models/table.dart';
 
 class Game {
   Game(List<List<int?>> numbers) : _table = Table.load(numbers);
