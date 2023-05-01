@@ -1,21 +1,21 @@
-import 'dart:ffi';
+import 'package:flutter_sudoku/models/number_entry.dart';
 
 import '../models/position.dart';
 import '../models/table.dart';
 
 class Game {
-  Game(List<List<int?>> numbers) : _table = Table.load(numbers);
+  Game(List<List<NumberEntry>> numbers) : table = Table.createWith(numbers);
 
-  final Table _table;
+  final Table table;
   final List<Position> _movesHistory = List<Position>.empty();
 
-  bool get isDone => _table.isFull;
+  bool get isDone => table.isFull;
 
   String printTable() {
     var sb = StringBuffer();
     for (int row = 0; row < 9; row++) {
       for (int column = 0; column < 9; column++) {
-        var value = _table.getValue(rowIndex: row, columnIndex: column);
+        var value = table.getValue(rowIndex: row, columnIndex: column);
         if (value == null) {
           sb.write(' ');
         } else {
@@ -38,7 +38,7 @@ class Game {
     int foundAtIndex = -1;
     List<Reason> failureReasons = List.empty();
 
-    if (_table.isEmpty(position)) {
+    if (table.isEmpty(position)) {
       failureReasons.add(Reason(RuleType.position, position));
     }
 
@@ -77,19 +77,19 @@ class Game {
 
   void undoMove() {
     final previousMove = _movesHistory.last;
-    _table.resetValue(previousMove);
+    table.resetValue(previousMove);
     _movesHistory.remove(previousMove);
   }
 
   void _makeMove(int value, Position position) {
-    _table.setValue(value: value, position: position);
+    table.setValue(value: value, position: position);
     _movesHistory.add(position);
   }
 
   List<int?> _getRow(int rowIndex) {
     List<int?> result = [];
     for (int columnIndex = 0; columnIndex < 9; columnIndex++) {
-      result.add(_table.getValue(rowIndex: rowIndex, columnIndex: columnIndex));
+      result.add(table.getValue(rowIndex: rowIndex, columnIndex: columnIndex));
     }
     return result;
   }
@@ -97,7 +97,7 @@ class Game {
   List<int?> _getColumn(int columnIndex) {
     List<int?> result = [];
     for (int rowIndex = 0; rowIndex < 9; rowIndex++) {
-      result.add(_table.getValue(rowIndex: rowIndex, columnIndex: columnIndex));
+      result.add(table.getValue(rowIndex: rowIndex, columnIndex: columnIndex));
     }
     return result;
   }
@@ -105,7 +105,7 @@ class Game {
   List<int?> _getBox(Position boxStartingPosition) {
     List<int?> result = [];
     for (int index = 0; index < 9; index++) {
-      result.add(_table.getValue(
+      result.add(table.getValue(
           rowIndex: (boxStartingPosition.rowIndex + (index % 3)),
           columnIndex: boxStartingPosition.columnIndex + (index ~/ 3)));
     }

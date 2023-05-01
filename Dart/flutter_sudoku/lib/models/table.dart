@@ -1,17 +1,15 @@
+import 'package:flutter_sudoku/models/number_entry.dart';
+
 import '../models/position.dart';
 
 class Table {
-  List<List<int?>> _numbers = List<List<int?>>.generate(
-      9, (ind) => List<int?>.generate(9, (index) => null));
+  List<List<NumberEntry>> _numbers = List<List<NumberEntry>>.generate(
+      9, (ind) => List<NumberEntry>.generate(9, (index) => NumberEntry(null)));
 
-  Table({List<List<int?>>? numbers}) {
-    if (numbers != null) {
-      _numbers = numbers;
-    }
-  }
+  Table._(this._numbers);
 
-  factory Table.load(List<List<int?>> numbers) {
-    return Table(numbers: numbers);
+  factory Table.createWith(List<List<NumberEntry>> numbers) {
+    return Table._(numbers);
   }
 
   int _filledCount = 0;
@@ -19,7 +17,7 @@ class Table {
   void setValue({required int value, required Position position}) {
     _validateValue(value);
 
-    _numbers[position.rowIndex][position.columnIndex] = value;
+    _numbers[position.rowIndex][position.columnIndex].setValue(value);
     _filledCount++;
   }
 
@@ -27,7 +25,7 @@ class Table {
     if (getValue(
             rowIndex: position.rowIndex, columnIndex: position.columnIndex) !=
         null) {
-      _numbers[position.rowIndex][position.columnIndex] = null;
+      _numbers[position.rowIndex][position.columnIndex].setValue(null);
     }
   }
 
@@ -38,7 +36,7 @@ class Table {
     _validateIndex(rowIndex);
     _validateIndex(columnIndex);
 
-    return _numbers[rowIndex][columnIndex];
+    return _numbers[rowIndex][columnIndex].getValue();
   }
 
   bool isEmpty(Position position) {
