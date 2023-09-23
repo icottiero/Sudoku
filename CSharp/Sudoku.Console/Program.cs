@@ -10,8 +10,6 @@ Console.Write("The game has started.");
 Console.WriteLine();
 Console.WriteLine(sudoku);
 
-int value, row, column;
-
 while(!sudoku.IsDone())
 {
     Console.Write("Enter the new value: ");
@@ -19,6 +17,7 @@ while(!sudoku.IsDone())
     var input = Console.ReadKey();
     Console.WriteLine();
 
+    int value;
     while(!int.TryParse($"{input.KeyChar}", out value))
     {
         Console.Write("That is not a number. The value must be a number. Enter the value:");
@@ -30,6 +29,7 @@ while(!sudoku.IsDone())
     input = Console.ReadKey();
     Console.WriteLine();
 
+    int row;
     while (!int.TryParse($"{input.KeyChar}", out row))
     {
         Console.Write("That is not a number. The row must be a number. Enter the value:");
@@ -41,6 +41,7 @@ while(!sudoku.IsDone())
     input = Console.ReadKey();
     Console.WriteLine();
 
+    int column;
     while (!int.TryParse($"{input.KeyChar}", out column))
     {
         Console.Write("That is not a number. The column must be a number. Enter the value:");
