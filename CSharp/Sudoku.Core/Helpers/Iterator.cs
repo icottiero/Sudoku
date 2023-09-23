@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Sudoku.Console;
+namespace Sudoku.Core.Helpers;
 
 public static class Iterator
 {

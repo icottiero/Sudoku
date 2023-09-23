@@ -1,5 +1,4 @@
-﻿using Sudoku.Console;
-using Sudoku.Engine;
+﻿using Sudoku.Engine;
 using Sudoku.Models;
 
 Console.WriteLine("Hello, World!");

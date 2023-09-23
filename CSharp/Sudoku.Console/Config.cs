@@ -1,4 +1,4 @@
-namespace Sudoku.Helpers;
+namespace Sudoku.Console;
 
 public static class Config
 {

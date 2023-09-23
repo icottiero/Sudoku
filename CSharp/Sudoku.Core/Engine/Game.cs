@@ -1,8 +1,7 @@
-﻿using Sudoku.Console;
-using Sudoku.Helpers;
+﻿using Sudoku.Core.Helpers;
 using Sudoku.Models;
 
-namespace Sudoku.Engine;
+namespace Sudoku.Core.Engine;
 
 public class Game
 {

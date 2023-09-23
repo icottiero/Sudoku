@@ -1,6 +1,6 @@
 using System.Text.Json;
 using Sudoku.Console;
-using Sudoku.Helpers;
+using Sudoku.Core.Engine;
 using Sudoku.Models;
 
 namespace Sudoku.Engine;

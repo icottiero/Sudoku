@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Sudoku.Helpers;
+namespace Sudoku.Core.Helpers;
 
 internal static class ArrayExtensions
 {
